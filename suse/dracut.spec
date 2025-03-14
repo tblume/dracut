@@ -280,7 +280,6 @@ rm -f /var/adm/fillup-templates/sysconfig.kernel-mkinitrd
 # RH-specific s390 modules, we take another approach
 %{dracutlibdir}/modules.d/95dasd
 %{dracutlibdir}/modules.d/95zfcp
-%{dracutlibdir}/modules.d/95znet
 %endif
 
 %files
@@ -431,6 +430,7 @@ rm -f /var/adm/fillup-templates/sysconfig.kernel-mkinitrd
 %ifarch s390 s390x
 %{dracutlibdir}/modules.d/95dasd_mod
 %{dracutlibdir}/modules.d/95dcssblk
+%{dracutlibdir}/modules.d/95znet
 %endif
 %{dracutlibdir}/modules.d/95debug
 %{dracutlibdir}/modules.d/95fcoe
