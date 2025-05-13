@@ -85,6 +85,10 @@ if [ -n "$iscsi_firmware" ]; then
     fi
     modprobe -b -q iscsi_boot_sysfs 2> /dev/null
     modprobe -b -q iscsi_ibft
+
+    command -v ibft_to_cmdline > /dev/null || . /lib/net-lib.sh
+    ibft_to_cmdline
+
     # if no ip= is given, but firmware
     echo "${DRACUT_SYSTEMD+systemctl is-active initrd-root-device.target || }[ -f '/tmp/iscsistarted-firmware' ]" > "$hookdir"/initqueue/finished/iscsi_started.sh
     initqueue --unique --online /sbin/iscsiroot online "iscsi:" "$NEWROOT"
