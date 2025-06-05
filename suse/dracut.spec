@@ -121,6 +121,14 @@ Requires:       %{name} = %{version}-%{release}
 This package contains all modules that are part of dracut upstream
 but are not normally supported or required.
 
+%package qa-testsuite
+Summary:        Test suite for QA
+Group:          System/Benchmark
+Requires:       %{name} = %{version}-%{release}
+
+%description qa-testsuite
+This package provides the dracut testsuite scripts and binaries for QA.
+
 %prep
 %autosetup
 
@@ -173,9 +181,8 @@ install -m 0644 suse/s390x_persistent_policy.conf %{buildroot}%{_sysconfdir}/dra
 install -m 0644 suse/persistent_policy.conf %{buildroot}%{_sysconfdir}/dracut.conf.d/10-persistent_policy.conf
 %endif
 
-# remove tests
-rm -rf %{buildroot}%{dracutlibdir}/test
-rm -rf %{buildroot}%{dracutlibdir}/modules.d/80test*
+# qa-testsuite installation
+ln -s /usr/bin/dracut %{buildroot}/%{dracutlibdir}/dracut.sh
 
 %post
 # check whether /var/run has been converted to a symlink
@@ -483,5 +490,14 @@ rm -f /var/adm/fillup-templates/sysconfig.kernel-mkinitrd
 %dir %{_unitdir}/sysinit.target.wants
 %{_unitdir}/*.service
 %{_unitdir}/*/*.service
+
+%files qa-testsuite
+%defattr(-,root,root)
+%{dracutlibdir}/test
+%{dracutlibdir}/test/test-functions
+%{dracutlibdir}/dracut.sh
+%{dracutlibdir}/modules.d/80test
+%{dracutlibdir}/modules.d/80test-root
+%{dracutlibdir}/modules.d/80test-makeroot
 
 %changelog
