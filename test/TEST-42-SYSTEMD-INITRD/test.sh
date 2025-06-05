@@ -92,6 +92,8 @@ test_setup() {
         for f in dracut*.service; do
             [ -e "$f" ] && echo "unexpected dracut service found: $f" && return 1
         done
+        #tblume: the cat below is not executed without this sleep
+        sleep 1
     )
 
     # combine systemd-based initrd with the test infra initrd
