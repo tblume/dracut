@@ -112,7 +112,7 @@ test_makeroot() {
 test_setup() {
     # Create what will eventually be our root filesystem onto an overlay
     "$DRACUT" -N --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -f "$TESTDIR"/initramfs.root "$KVERSION"
     mkdir -p "$TESTDIR"/overlay/source && mv "$TESTDIR"/dracut.*/initramfs/* "$TESTDIR"/overlay/source && rm -rf "$TESTDIR"/dracut.*
 
@@ -126,7 +126,7 @@ test_setup() {
 
     # shellcheck disable=SC2046
     "$DRACUT" -N -i "$TESTDIR"/overlay / \
-        --add-confdir test-makeroot \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-makeroot \
         -a "lvm" \
         -I "grep" \
         $(if command -v mdadm > /dev/null; then echo "-a mdraid"; fi) \

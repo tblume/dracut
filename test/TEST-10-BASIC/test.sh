@@ -23,7 +23,7 @@ test_run() {
 test_setup() {
     # create root filesystem
     "$DRACUT" -N --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -f "$TESTDIR"/initramfs.root "$KVERSION"
 
     dd if=/dev/zero of="$TESTDIR"/root.img bs=200MiB count=1 status=none && sync

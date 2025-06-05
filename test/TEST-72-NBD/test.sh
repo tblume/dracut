@@ -191,7 +191,7 @@ make_encrypted_root() {
     rm -fr "$TESTDIR"/overlay
     # Create what will eventually be our root filesystem onto an overlay
     "$DRACUT" --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -I "ip grep" \
         --no-hostonly --no-hostonly-cmdline --nohardlink \
         -f "$TESTDIR"/initramfs.root "$KVERSION"
@@ -203,7 +203,7 @@ make_encrypted_root() {
     # We do it this way so that we do not risk trashing the host mdraid
     # devices, volume groups, encrypted partitions, etc.
     "$DRACUT" -i "$TESTDIR"/overlay / \
-        --add-confdir test-makeroot \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-makeroot \
         -a "crypt lvm mdraid" \
         -I "cryptsetup" \
         -i ./create-encrypted-root.sh /lib/dracut/hooks/initqueue/01-create-encrypted-root.sh \
@@ -228,7 +228,7 @@ make_encrypted_root() {
 make_client_root() {
     rm -fr "$TESTDIR"/overlay
     "$DRACUT" --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -I "ip" \
         --no-hostonly --no-hostonly-cmdline --nohardlink \
         -f "$TESTDIR"/initramfs.root "$KVERSION"
@@ -240,7 +240,7 @@ make_client_root() {
     # We do it this way so that we do not risk trashing the host mdraid
     # devices, volume groups, encrypted partitions, etc.
     "$DRACUT" -i "$TESTDIR"/overlay / \
-        --add-confdir test-makeroot \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-makeroot \
         -i ./create-client-root.sh /lib/dracut/hooks/initqueue/01-create-client-root.sh \
         --nomdadmconf \
         --no-hostonly-cmdline -N \
@@ -276,7 +276,7 @@ bs = 4096
 EOF
 
     "$DRACUT" --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -a "network-legacy" \
         -I "ip grep sleep nbd-server chmod modprobe pidof" \
         --install-optional "/etc/netconfig dhcpd /etc/group /etc/nsswitch.conf /etc/rpc /etc/protocols /etc/services /usr/etc/nsswitch.conf /usr/etc/rpc /usr/etc/protocols /usr/etc/services" \
@@ -294,7 +294,7 @@ EOF
     # We do it this way so that we do not risk trashing the host mdraid
     # devices, volume groups, encrypted partitions, etc.
     "$DRACUT" -N -i "$TESTDIR"/overlay / \
-        --add-confdir test-makeroot \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-makeroot \
         -a "network-legacy" \
         -i ./create-server-root.sh /lib/dracut/hooks/initqueue/01-create-server-root.sh \
         --nomdadmconf \

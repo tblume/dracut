@@ -45,7 +45,7 @@ test_run() {
 test_setup() {
     # Create what will eventually be our root filesystem
     "$DRACUT" -N --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         "$TESTDIR"/tmp-initramfs.root "$KVERSION"
 
     mksquashfs "$TESTDIR"/dracut.*/initramfs/ "$TESTDIR"/squashfs.img -quiet -no-progress

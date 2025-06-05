@@ -135,7 +135,7 @@ test_check() {
 test_setup() {
     # Create what will eventually be the client root filesystem onto an overlay
     "$DRACUT" -N --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -I "ip grep setsid" \
         -f "$TESTDIR"/initramfs.root "$KVERSION"
     mkdir -p "$TESTDIR"/overlay/source && mv "$TESTDIR"/dracut.*/initramfs/* "$TESTDIR"/overlay/source && rm -rf "$TESTDIR"/dracut.*
@@ -147,7 +147,7 @@ test_setup() {
     # We do it this way so that we do not risk trashing the host mdraid
     # devices, volume groups, encrypted partitions, etc.
     "$DRACUT" -i "$TESTDIR"/overlay / \
-        --add-confdir test-makeroot \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-makeroot \
         -a "crypt lvm mdraid" \
         -I "setsid blockdev" \
         -i ./create-client-root.sh /lib/dracut/hooks/initqueue/01-create-client-root.sh \
@@ -172,7 +172,7 @@ test_setup() {
 
     # Create what will eventually be the server root filesystem onto an overlay
     "$DRACUT" -N --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -a network-legacy \
         -d "iscsi_tcp crc32c ipv6" \
         -I "modprobe chmod ip setsid pidof tgtd tgtadm /etc/passwd" \
@@ -189,7 +189,7 @@ test_setup() {
     # We do it this way so that we do not risk trashing the host mdraid
     # devices, volume groups, encrypted partitions, etc.
     "$DRACUT" -N -i "$TESTDIR"/overlay / \
-        --add-confdir test-makeroot \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-makeroot \
         -i ./create-server-root.sh /lib/dracut/hooks/initqueue/01-create-server-root.sh \
         -f "$TESTDIR"/initramfs.makeroot "$KVERSION"
     rm -rf -- "$TESTDIR"/overlay

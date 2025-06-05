@@ -144,7 +144,7 @@ test_setup() {
     # Create what will eventually be our root filesystem onto an overlay
     rm -rf -- "$TESTDIR"/overlay
     "$DRACUT" --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -I "ip grep setsid" \
         --no-hostonly --no-hostonly-cmdline --nohardlink \
         -f "$TESTDIR"/initramfs.root "$KVERSION"
@@ -157,7 +157,7 @@ test_setup() {
     # We do it this way so that we do not risk trashing the host mdraid
     # devices, volume groups, encrypted partitions, etc.
     "$DRACUT" -i "$TESTDIR"/overlay / \
-        --add-confdir test-makeroot \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-makeroot \
         -a "crypt lvm mdraid" \
         -I "setsid blockdev" \
         -i ./create-client-root.sh /lib/dracut/hooks/initqueue/01-create-client-root.sh \
@@ -182,7 +182,7 @@ test_setup() {
 
     rm -rf -- "$TESTDIR"/overlay
     "$DRACUT" -N --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -a "network-legacy iscsi" \
         -d "iscsi_tcp crc32c ipv6 af_packet" \
         -I "ip grep sleep setsid chmod modprobe pidof tgtd tgtadm" \
@@ -200,7 +200,7 @@ test_setup() {
     # We do it this way so that we do not risk trashing the host mdraid
     # devices, volume groups, encrypted partitions, etc.
     "$DRACUT" -N -i "$TESTDIR"/overlay / \
-        --add-confdir test-makeroot \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-makeroot \
         -i ./create-server-root.sh /lib/dracut/hooks/initqueue/01-create-server-root.sh \
         -f "$TESTDIR"/initramfs.makeroot "$KVERSION"
     rm -rf -- "$TESTDIR"/overlay

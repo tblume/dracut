@@ -300,7 +300,7 @@ test_setup() {
     export initdir=$TESTDIR/server/overlay/source/nfs/client
 
     "$DRACUT" -N --keep --tmpdir "$TESTDIR" \
-        --add-confdir test-root \
+        --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-root \
         -a "url-lib nfs" \
         -I "ip grep setsid" \
         -f "$TESTDIR"/initramfs.root "$KVERSION" || return 1
