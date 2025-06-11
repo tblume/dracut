@@ -263,8 +263,6 @@ test_setup() {
 
         inst_multiple -o rpc.idmapd /etc/idmapd.conf
 
-        inst_libdir_file 'libnfsidmap_nsswitch.so*'
-        inst_libdir_file 'libnfsidmap/*.so*'
         inst_libdir_file 'libnfsidmap*.so*'
 
         _nsslibs=$(
@@ -310,8 +308,6 @@ test_setup() {
         inst /etc/group /etc/group
 
         inst_multiple -o rpc.idmapd /etc/idmapd.conf
-        inst_libdir_file 'libnfsidmap_nsswitch.so*'
-        inst_libdir_file 'libnfsidmap/*.so*'
         inst_libdir_file 'libnfsidmap*.so*'
 
         _nsslibs=$(
