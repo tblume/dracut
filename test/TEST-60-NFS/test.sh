@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 [ -z "${USE_NETWORK-}" ] && USE_NETWORK="network"
 
@@ -207,6 +206,7 @@ test_nfsv4() {
 }
 
 test_run() {
+    set -e
     if [[ -s server.pid ]]; then
         kill -TERM "$(cat "$TESTDIR"/server.pid)"
         rm -f -- "$TESTDIR"/server.pid

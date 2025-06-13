@@ -1,5 +1,6 @@
 [Match]
 OriginalName=*
+Kind=!bridge
 
 [Link]
 NamePolicy=keep kernel database onboard slot path
