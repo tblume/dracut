@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # -*- mode: shell-script; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
 # ex: ts=8 sw=4 sts=4 et filetype=sh
-set -e
 
 [ -z "${USE_NETWORK-}" ] && USE_NETWORK="network"
 
@@ -21,9 +20,6 @@ test_check() {
     fi
 
     command -v exportfs &> /dev/null
-
-    # TODO: remove this check and make this test work
-    return 1
 }
 
 # Network topology:
@@ -133,6 +129,7 @@ client_test() {
 }
 
 test_run() {
+    set -e
     if ! run_server; then
         echo "Failed to start server" 1>&2
         return 1
