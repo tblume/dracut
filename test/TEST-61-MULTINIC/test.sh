@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 [ -z "${USE_NETWORK-}" ] && USE_NETWORK="network"
 
@@ -21,7 +20,7 @@ test_check() {
     command -v exportfs &> /dev/null
 
     # TODO: remove this check and make this test work on other distributions as well not just fedora
-    [ -f /usr/lib/os-release ] && . /usr/lib/os-release && [ "$ID" = "fedora" ]
+    [ -f /usr/lib/os-release ] && . /usr/lib/os-release && [ "$ID" = "fedora" ] ||  [ "$ID" = "opensuse-tumbleweed" ]
 }
 
 run_server() {
@@ -114,6 +113,7 @@ client_test() {
 }
 
 test_run() {
+    set -e
     if ! run_server; then
         echo "Failed to start server" 1>&2
         return 1
@@ -335,6 +335,7 @@ test_setup() {
         inst_simple ./client-persistent-lan99.link /etc/systemd/network/01-persistent-lan99.link
         inst_simple ./client-persistent-lan254.link /etc/systemd/network/01-persistent-lan254.link
         inst_simple ./client-persistent-lan255.link /etc/systemd/network/01-persistent-lan255.link
+        inst_simple ./NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
 
         inst_binary awk
     )

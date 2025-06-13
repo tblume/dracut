@@ -1,5 +1,7 @@
 [Match]
 MACAddress=52:54:00:12:34:00
+Kind=!bond
+Kind=!bridge
 
 [Link]
 Name=lan0
