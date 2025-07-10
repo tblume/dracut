@@ -212,8 +212,8 @@ test_setup() {
     "$DRACUT" \
         -a "test network-legacy" \
         -d "piix ide-gd_mod ata_piix ext4 sd_mod drbg virtio_net virtio_pci virtio_scsi" \
-        -i "./server.link" "/etc/systemd/network/01-server.link" \
-        -i ./wait-if-server.sh /lib/dracut/hooks/pre-mount/99-wait-if-server.sh \
+        -i "$(pwd)/server.link" "/etc/systemd/network/01-server.link" \
+        -i "$(pwd)/wait-if-server.sh" "/lib/dracut/hooks/pre-mount/99-wait-if-server.sh" \
         --no-hostonly-cmdline -N \
         -f "$TESTDIR"/initramfs.server "$KVERSION"
 
@@ -221,8 +221,8 @@ test_setup() {
     test_dracut \
         --no-hostonly --no-hostonly-cmdline \
         --add "$USE_NETWORK" \
-        --include "./client-persistent-lan0.link" "/etc/systemd/network/01-persistent-lan0.link" \
-        --include "./client-persistent-lan1.link" "/etc/systemd/network/01-persistent-lan1.link" \
+        --include "$(pwd)/client-persistent-lan0.link" "/etc/systemd/network/01-persistent-lan0.link" \
+        --include "$(pwd)/client-persistent-lan1.link" "/etc/systemd/network/01-persistent-lan1.link" \
         --kernel-cmdline "rw rd.auto"
 }
 
