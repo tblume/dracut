@@ -223,15 +223,15 @@ test_setup() {
     test_dracut \
         --no-hostonly --no-hostonly-cmdline \
         --add "$USE_NETWORK" \
-        -i ./client-persistent-lan0.link /etc/systemd/network/01-persistent-lan0.link \
-        -i ./client-persistent-lan1.link /etc/systemd/network/01-persistent-lan1.link
+        -i $(pwd)/client-persistent-lan0.link /etc/systemd/network/01-persistent-lan0.link \
+        -i $(pwd)/client-persistent-lan1.link /etc/systemd/network/01-persistent-lan1.link
 
     # Make server's dracut image
     "$DRACUT" -i "$TESTDIR"/overlay / \
         -a "test rootfs-block kernel-modules network-legacy ${SERVER_DEBUG:+debug}" \
         -d "af_packet piix ide-gd_mod ata_piix ext4 sd_mod drbg virtio_net" \
-        -i "./server.link" "/etc/systemd/network/01-server.link" \
-        -i "./wait-if-server.sh" "/lib/dracut/hooks/pre-mount/99-wait-if-server.sh" \
+        -i "$(pwd)/server.link" "/etc/systemd/network/01-server.link" \
+        -i "$(pwd)/wait-if-server.sh" "/lib/dracut/hooks/pre-mount/99-wait-if-server.sh" \
         --no-hostonly-cmdline -N \
         -f "$TESTDIR"/initramfs.server "$KVERSION"
 }
