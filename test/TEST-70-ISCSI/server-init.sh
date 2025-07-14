@@ -79,7 +79,6 @@ tgtadm --lld iscsi --mode target --op bind --tid 3 -I 192.168.50.101
 echo "Serving iSCSI"
 while pidof tgtd > /dev/null; do
     : > /dev/watchdog
-    dmesg -c
     sleep 1
 done
 dmesg -c
