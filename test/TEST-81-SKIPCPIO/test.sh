@@ -42,7 +42,7 @@ skipcpio_simple() {
 EOF
 
     if [ "$PKGLIBDIR" = "$basedir" ]; then
-        skipcpio_path="${PKGLIBDIR}/src/skipcpio"
+        skipcpio_path="/usr/lib/dracut"
     else
         skipcpio_path="${PKGLIBDIR}"
     fi
