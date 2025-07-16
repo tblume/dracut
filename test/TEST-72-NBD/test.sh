@@ -342,6 +342,7 @@ test_setup() {
         -d "af_packet piix ide-gd_mod ata_piix ext4 sd_mod drbg virtio_net" \
         -i "./server.link" "/etc/systemd/network/01-server.link" \
         -i "./wait-if-server.sh" "/lib/dracut/hooks/pre-mount/99-wait-if-server.sh" \
+        --no-hostonly-cmdline -N \
         -f "$TESTDIR"/initramfs.server "$KVERSION"
 }
 
