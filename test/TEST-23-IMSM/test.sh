@@ -68,7 +68,7 @@ test_setup() {
         --add-confdir /usr/lib/dracut/test/dracut.conf.d/test-makeroot \
         -a "bash lvm mdraid dmraid" \
         -d "piix ide-gd_mod ata_piix ext4 sd_mod dm-multipath dm-crypt dm-round-robin faulty linear multipath raid0 raid10 raid1 raid456" \
-        -I "grep sfdisk realpath" \
+        -I "grep sfdisk realpath dmeventd" \
         -i ./create-root.sh /lib/dracut/hooks/initqueue/01-create-root.sh \
         -f "$TESTDIR"/initramfs.makeroot "$KVERSION"
 

@@ -6,6 +6,8 @@ trap 'poweroff -f' EXIT
 echo y | dmraid -f isw -C Test0 --type 1 --disk "$(realpath /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_disk1) $(realpath /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_disk2)"
 udevadm settle
 
+/sbin/dmeventd -f -l &
+
 SETS=$(dmraid -c -s)
 # scan and activate all DM RAIDS
 for s in $SETS; do
@@ -28,7 +30,8 @@ EOF
 set -x
 
 udevadm settle
-dmraid -a n
+/sbin/dmeventd -f -l &
+dmraid -I -a n
 udevadm settle
 
 SETS=$(dmraid -c -s -i)
@@ -39,6 +42,8 @@ for s in $SETS; do
 done
 
 udevadm settle
+
+ls -l /dev/mapper
 
 mdadm --create /dev/md0 --run --auto=yes --level=5 --raid-devices=3 \
     /dev/mapper/isw*p*[234]
