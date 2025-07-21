@@ -183,6 +183,12 @@ install -m 0644 suse/persistent_policy.conf %{buildroot}%{_sysconfdir}/dracut.co
 
 # qa-testsuite installation
 ln -s /usr/bin/dracut %{buildroot}/%{dracutlibdir}/dracut.sh
+mkdir -p %{buildroot}%{dracutlibdir}/dracut.conf.d/uki-virt
+install -D -m 0644 dracut.conf.d/uki-virt/50-uki-virt.conf %{buildroot}%{dracutlibdir}/dracut.conf.d/uki-virt/50-uki-virt.conf
+mkdir -p %{buildroot}%{dracutlibdir}/dracut.conf.d/rescue
+install -D -m 0644 dracut.conf.d/rescue/50-rescue.conf  %{buildroot}%{dracutlibdir}/dracut.conf.d/rescue/50-rescue.conf
+mkdir -p %{buildroot}%{dracutlibdir}/dracut.conf.d/hostonly
+install -D -m 0644 dracut.conf.d/hostonly/50-hostonly.conf  %{buildroot}%{dracutlibdir}/dracut.conf.d/hostonly/50-hostonly.conf
 
 %post
 # check whether /var/run has been converted to a symlink
@@ -493,6 +499,9 @@ rm -f /var/adm/fillup-templates/sysconfig.kernel-mkinitrd
 
 %files qa-testsuite
 %defattr(-,root,root)
+%{dracutlibdir}/dracut.conf.d/uki-virt
+%{dracutlibdir}/dracut.conf.d/rescue
+%{dracutlibdir}/dracut.conf.d/hostonly
 %{dracutlibdir}/test
 %{dracutlibdir}/test/test-functions
 %{dracutlibdir}/dracut.sh
