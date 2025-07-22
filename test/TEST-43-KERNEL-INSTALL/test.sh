@@ -4,8 +4,8 @@ set -e
 TEST_DESCRIPTION="kernel-install with root filesystem on ext4 filesystem"
 
 test_check() {
-    if command -v systemd-detect-virt > /dev/null && ! systemd-detect-virt -c &> /dev/null; then
-        echo "This test assumes that it runs inside a CI container."
+    if command -v systemd-detect-virt > /dev/null && ! systemd-detect-virt -v &> /dev/null; then
+        echo "This test assumes that it runs inside a virtual machine."
         return 1
     fi
 
